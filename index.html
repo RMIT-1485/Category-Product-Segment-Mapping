@@ -118,8 +118,8 @@
             text-align: center;
             margin: 30px 0;
         }
-        .btn {
-            background: #28a745;
+        .btn-red {
+            background: #8B0000;
             color: white;
             padding: 12px 24px;
             border: none;
@@ -130,21 +130,8 @@
             margin: 0 10px;
             transition: background-color 0.2s;
         }
-        .btn:hover {
-            background: #218838;
-        }
-        .btn-red {
-            background: #8B0000;
-            color: white;
-        }
         .btn-red:hover {
             background: #A52A2A;
-        }
-        .btn-secondary {
-            background: #6c757d;
-        }
-        .btn-secondary:hover {
-            background: #5a6268;
         }
         .instructions {
             background: #fff3cd;
@@ -421,10 +408,7 @@
         </div>
 
         <div class="btn-container">
-            <button type="button" class="btn btn-red" onclick="exportToWord()">Export to Word</button>
-            <button type="button" class="btn" onclick="generateOutput()">Generate Analysis</button>
-            <button type="button" class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
-            <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
+            <button type="button" class="btn-red" onclick="exportToWord()">Export to Word</button>
         </div>
     </form>
 
@@ -509,24 +493,6 @@ ${formData.get('references')}`;
             document.getElementById('outputContent').textContent = output;
             document.getElementById('outputSection').style.display = 'block';
             document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function copyToClipboard() {
-            const output = document.getElementById('outputContent').textContent;
-            if (output) {
-                navigator.clipboard.writeText(output).then(() => {
-                    alert('Analysis copied to clipboard! You can now paste it into Word.');
-                });
-            } else {
-                alert('Please generate the analysis first.');
-            }
-        }
-
-        function clearForm() {
-            if (confirm('Are you sure you want to clear all form data?')) {
-                document.getElementById('segmentForm').reset();
-                document.getElementById('outputSection').style.display = 'none';
-            }
         }
 
         // Auto-save to localStorage
