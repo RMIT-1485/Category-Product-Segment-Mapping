@@ -158,17 +158,6 @@
             margin-right: 10px;
             width: auto;
         }
-        .output-area {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-            max-height: 400px;
-            overflow-y: auto;
-        }
         .prompt-questions {
             background: #e7f3ff;
             border-left: 4px solid #8B0000;
@@ -412,39 +401,8 @@
         </div>
     </form>
 
-    <div id="outputSection" style="display: none;">
-        <div class="section">
-            <h2>Generated Analysis Output</h2>
-            <p><em>Copy this content to paste into Word for your Assessment 1:</em></p>
-            <div id="outputContent" class="output-area"></div>
-        </div>
-    </div>
-
     <script>
         function exportToWord() {
-            generateOutput();
-            const output = document.getElementById('outputContent').textContent;
-            if (output) {
-                // Create a blob with the content
-                const blob = new Blob([output], { type: 'application/msword' });
-                const url = URL.createObjectURL(blob);
-                
-                // Create a temporary link and click it to download
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'Product_Segment_Analysis.doc';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                
-                alert('Analysis exported to Word document!');
-            } else {
-                alert('Please fill out the form first.');
-            }
-        }
-
-        function generateOutput() {
             const form = document.getElementById('segmentForm');
             const formData = new FormData(form);
             
@@ -490,9 +448,24 @@ ${formData.get('fiveForces')}
 References
 ${formData.get('references')}`;
 
-            document.getElementById('outputContent').textContent = output;
-            document.getElementById('outputSection').style.display = 'block';
-            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+            if (output) {
+                // Create a blob with the content
+                const blob = new Blob([output], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                
+                // Create a temporary link and click it to download
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'Product_Segment_Analysis.doc';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert('Analysis exported to Word document!');
+            } else {
+                alert('Please fill out the form first.');
+            }
         }
 
         // Auto-save to localStorage
