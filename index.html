@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: Product Segment Analysis</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .subtitle {
+            font-size: 1.1em;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .form-container {
+            background: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .section h2 {
+            color: #0366d6;
+            margin-top: 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #586069;
+            font-size: 1.2em;
+            margin-top: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #24292e;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .large-textarea {
+            min-height: 150px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #d1d5da;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+            color: #24292e;
+        }
+        td input, td select, td textarea {
+            border: none;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .instructions h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .checklist {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        .checkbox-item {
+            margin: 8px 0;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+        }
+        .output-area {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .prompt-questions {
+            background: #e7f3ff;
+            border-left: 4px solid #0366d6;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .prompt-questions h4 {
+            margin-top: 0;
+            color: #0366d6;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Week 4: Product Segment Analysis</h1>
+        <div class="subtitle">Category and Product Segment Drill-Down for Assessment 1</div>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 Instructions</h3>
+        <p><strong>Purpose:</strong> Narrow a broad category into a specific, defensible product segment for your brand.</p>
+        <p><strong>Reminder:</strong> Use PESTLE, Five Forces and SWOT evidence to justify your chosen product segment.</p>
+        <p><strong>Note:</strong> "Segment" = product segment (how the category splits by product type/format/benefit). Consumer segments are covered in Week 5.</p>
+    </div>
+
+    <form id="segmentForm" class="form-container">
+        <div class="section">
+            <h2>📝 Student Information</h2>
+            <div class="form-group">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="studentName" required>
+            </div>
+            <div class="form-group">
+                <label for="studentId">Student ID:</label>
+                <input type="text" id="studentId" name="studentId" required>
+            </div>
+            <div class="form-group">
+                <label for="submissionDate">Submission Date:</label>
+                <input type="text" id="submissionDate" name="submissionDate" value="Monday, August 11, 2025" required>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Step 1: Category Definition</h2>
+            <div class="form-group">
+                <label for="categoryDefinition">Category Definition (one sentence with clear boundaries):</label>
+                <textarea id="categoryDefinition" name="categoryDefinition" placeholder="Define your category including scope & boundaries, target market, and channels..." required></textarea>
+            </div>
+            
+            <h3>Key PESTLE Drivers/Constraints:</h3>
+            <div class="form-group">
+                <label for="pestleFactors">PESTLE Analysis Summary:</label>
+                <textarea id="pestleFactors" name="pestleFactors" placeholder="List key Political, Economic, Social, Technological, Legal, and Environmental factors affecting this category..." class="large-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Step 2: Product Segment Screening Matrix</h2>
+            <div class="prompt-questions">
+                <h4>Consider These Factors:</h4>
+                <ul>
+                    <li>Need/benefit or job served</li>
+                    <li>Occasions/contexts of use</li>
+                    <li>Price bands and typical formats</li>
+                    <li>Format, claims, ingredient or tech differences</li>
+                </ul>
+            </div>
+            
+            <table id="segmentMatrix">
+                <thead>
+                    <tr>
+                        <th>Product Segment</th>
+                        <th>Approx. Size</th>
+                        <th>Growth</th>
+                        <th>Competitive Intensity</th>
+                        <th>Fit to Brand Strengths</th>
+                        <th>Evidence Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="segment1_name" placeholder="Segment A Name"></td>
+                        <td><input type="text" name="segment1_size" placeholder="Market size estimate"></td>
+                        <td><input type="text" name="segment1_growth" placeholder="Growth rate %"></td>
+                        <td>
+                            <select name="segment1_intensity">
+                                <option value="">Select...</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </td>
+                        <td><textarea name="segment1_fit" placeholder="Strength alignment description"></textarea></td>
+                        <td><input type="text" name="segment1_evidence" placeholder="URL or source"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="segment2_name" placeholder="Segment B Name"></td>
+                        <td><input type="text" name="segment2_size" placeholder="Market size estimate"></td>
+                        <td><input type="text" name="segment2_growth" placeholder="Growth rate %"></td>
+                        <td>
+                            <select name="segment2_intensity">
+                                <option value="">Select...</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </td>
+                        <td><textarea name="segment2_fit" placeholder="Strength alignment description"></textarea></td>
+                        <td><input type="text" name="segment2_evidence" placeholder="URL or source"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="segment3_name" placeholder="Segment C Name"></td>
+                        <td><input type="text" name="segment3_size" placeholder="Market size estimate"></td>
+                        <td><input type="text" name="segment3_growth" placeholder="Growth rate %"></td>
+                        <td>
+                            <select name="segment3_intensity">
+                                <option value="">Select...</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </td>
+                        <td><textarea name="segment3_fit" placeholder="Strength alignment description"></textarea></td>
+                        <td><input type="text" name="segment3_evidence" placeholder="URL or source"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="segment4_name" placeholder="Optional: Segment D"></td>
+                        <td><input type="text" name="segment4_size" placeholder="Market size estimate"></td>
+                        <td><input type="text" name="segment4_growth" placeholder="Growth rate %"></td>
+                        <td>
+                            <select name="segment4_intensity">
+                                <option value="">Select...</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </td>
+                        <td><textarea name="segment4_fit" placeholder="Strength alignment description"></textarea></td>
+                        <td><input type="text" name="segment4_evidence" placeholder="URL or source"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Step 3: Selection & Rationale</h2>
+            <div class="prompt-questions">
+                <h4>Ask Yourself:</h4>
+                <ul>
+                    <li>What external forces make this product segment attractive now?</li>
+                    <li>Where do rivals over-serve or under-serve needs?</li>
+                    <li>Which capability gives your brand an advantage the market cares about?</li>
+                    <li>Which segment is both attractive and winnable for your brand?</li>
+                </ul>
+            </div>
+            
+            <div class="form-group">
+                <label for="focusSegment">Our focus product segment is:</label>
+                <input type="text" id="focusSegment" name="focusSegment" placeholder="Name your chosen segment" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="rationale">Rationale referencing PESTLE & Five Forces:</label>
+                <textarea id="rationale" name="rationale" class="large-textarea" placeholder="Provide detailed justification using external market forces and competitive analysis. Consider size & growth signals, competitive intensity & barriers to entry, and brand fit & capability to win in 12-18 months." required></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Step 4: Category Opportunity Summary (for Assessment 1)</h2>
+            <div class="form-group">
+                <label for="opportunitySummary">Three-sentence category opportunity summary:</label>
+                <textarea id="opportunitySummary" name="opportunitySummary" placeholder="Draft your category opportunity statement to paste directly into Assessment 1. This should synthesize your segment choice and rationale into a compelling opportunity statement." required></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Additional Analysis</h2>
+            <h3>Five Forces Assessment Summary:</h3>
+            <div class="form-group">
+                <label for="fiveForces">Five Forces Analysis:</label>
+                <textarea id="fiveForces" name="fiveForces" class="large-textarea" placeholder="Assess: 1) Threat of new entrants, 2) Bargaining power of suppliers, 3) Bargaining power of buyers, 4) Threat of substitutes, 5) Competitive rivalry. Rate each as High/Med/Low and explain."></textarea>
+            </div>
+            
+            <h3>References (Harvard Format):</h3>
+            <div class="form-group">
+                <label for="references">References:</label>
+                <textarea id="references" name="references" class="large-textarea" placeholder="List all sources used for market sizing, growth rates, and competitive analysis using Harvard referencing format. See RMIT EasyCite guide."></textarea>
+            </div>
+        </div>
+
+        <div class="checklist">
+            <h3>✅ Submission Checklist:</h3>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check1"> <label for="check1">Category definition is clear and has boundaries</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2"> <label for="check2">3-5 product segments listed that shoppers would recognise</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check3"> <label for="check3">Market sizing estimates provided with sources</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check4"> <label for="check4">Competitive intensity assessed for each segment</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check5"> <label for="check5">Brand fit evaluated against current strengths</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check6"> <label for="check6">Evidence links provided for claims</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check7"> <label for="check7">PESTLE & Five Forces analysis supports segment choice</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check8"> <label for="check8">Three-sentence category opportunity drafted</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check9"> <label for="check9">Harvard referencing used throughout</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check10"> <label for="check10">Ready to export to Word for Assessment 1</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="btn" onclick="generateOutput()">📋 Generate Analysis</button>
+            <button type="button" class="btn btn-secondary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+            <button type="button" class="btn btn-secondary" onclick="clearForm()">🗑️ Clear Form</button>
+        </div>
+    </form>
+
+    <div id="outputSection" style="display: none;">
+        <div class="section">
+            <h2>📄 Generated Analysis Output</h2>
+            <p><em>Copy this content to paste into Word for your Assessment 1:</em></p>
+            <div id="outputContent" class="output-area"></div>
+        </div>
+    </div>
+
+    <script>
+        function generateOutput() {
+            const form = document.getElementById('segmentForm');
+            const formData = new FormData(form);
+            
+            let output = `# Week 4: Product Segment Analysis
+**Student:** ${formData.get('studentName')}
+**Student ID:** ${formData.get('studentId')}
+**Date:** ${formData.get('submissionDate')}
+
+## Category Definition
+${formData.get('categoryDefinition')}
+
+## PESTLE Analysis Summary
+${formData.get('pestleFactors')}
+
+## Product Segment Screening Matrix
+
+| Product Segment | Approx. Size | Growth | Competitive Intensity | Fit to Brand Strengths | Evidence Link |
+|-----------------|--------------|--------|----------------------|----------------------|---------------|`;
+
+            // Add matrix rows
+            for (let i = 1; i <= 4; i++) {
+                const name = formData.get(`segment${i}_name`);
+                if (name) {
+                    output += `\n| ${name} | ${formData.get(`segment${i}_size`)} | ${formData.get(`segment${i}_growth`)} | ${formData.get(`segment${i}_intensity`)} | ${formData.get(`segment${i}_fit`)} | ${formData.get(`segment${i}_evidence`)} |`;
+                }
+            }
+
+            output += `
+
+## Selection & Rationale
+
+**Our focus product segment is:** ${formData.get('focusSegment')}
+
+**Rationale referencing PESTLE & Five Forces:**
+${formData.get('rationale')}
+
+## Category Opportunity Summary (for Assessment 1)
+${formData.get('opportunitySummary')}
+
+## Five Forces Analysis
+${formData.get('fiveForces')}
+
+## References
+${formData.get('references')}`;
+
+            document.getElementById('outputContent').textContent = output;
+            document.getElementById('outputSection').style.display = 'block';
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('outputContent').textContent;
+            if (output) {
+                navigator.clipboard.writeText(output).then(() => {
+                    alert('Analysis copied to clipboard! You can now paste it into Word.');
+                });
+            } else {
+                alert('Please generate the analysis first.');
+            }
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all form data?')) {
+                document.getElementById('segmentForm').reset();
+                document.getElementById('outputSection').style.display = 'none';
+            }
+        }
+
+        // Auto-save to localStorage
+        function saveFormData() {
+            const form = document.getElementById('segmentForm');
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            localStorage.setItem('week4Analysis', JSON.stringify(data));
+        }
+
+        // Load saved data
+        function loadFormData() {
+            const savedData = localStorage.getItem('week4Analysis');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                for (let key in data) {
+                    const element = document.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        element.value = data[key];
+                    }
+                }
+            }
+        }
+
+        // Save form data on input
+        document.getElementById('segmentForm').addEventListener('input', saveFormData);
+
+        // Load saved data on page load
+        window.addEventListener('load', loadFormData);
+    </script>
+</body>
+</html>
